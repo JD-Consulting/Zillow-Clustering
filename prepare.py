@@ -82,3 +82,16 @@ def fill_missing_values(df,fill_value):
     df.fillna(fill_value)
     return df
 
+
+def change_data(df, cols):
+    """
+    takes a dataframe and a list of columns and it 
+    converts the columns listed that are in the dataframe into 
+    objects in the same dataframe
+    """
+    newdf = pd.DataFrame(df, columns=cols)
+    df = df.drop(columns=cols)
+    newdf = newdf.astype(object)
+    df = pd.concat([df, newdf], axis=1)
+    return df
+    
