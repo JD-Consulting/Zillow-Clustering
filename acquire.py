@@ -4,6 +4,7 @@ import numpy as np
 
 import env
 
+
 def csv_exist():
     return os.path.isfile('zillow_data.csv')
 
@@ -37,6 +38,9 @@ def get_data_from_zillow():
 
 
 def generate_csv():
+    '''
+    
+    '''
     if csv_exist():
         print('- csv already exist')
     else:
@@ -45,54 +49,31 @@ def generate_csv():
         print('- zillow_data.csv successfully created')
 
 
-# returns a series for the summerize
-def convert_to_series(df):
-    '''
-    helper function for the summarize function
-    that converts a dataframe into a series and grabs 
-    the value counts from that dataframe
-    '''
-    series = pd.Series([])
-    for _, col in enumerate(df.columns.values):
-        if df[col].dtype == 'object':
-            col_count = df[col].value_counts()
-        else:
-            col_count = df[col].value_counts(bins=10)
-        series = series.append(col_count)
-    return series
-
-
-# need
-def summarize(df):
-    print("******** Info")
-    df.info()
-    print()
-    print("******** Shape {}".format(df.shape))
-    print()
-    print("******** Describe")      
-    print(df.describe)
-    print()
-    print("******** Value Counts")      
-    print(convert_to_series(df))
-
-
-# function returns missing rows in data set
-def nulls_missing_rows(df):
-    missing = df.isnull().sum()
-    pct_rows_missing = missing / df.shape[0]*100
-    number_missing = pd.DataFrame({'number_rows_missing':missing, 'pct_rows_missing': pct_rows_missing})
-    return number_missing
-
-# function returns missing columns in data set
-def nulls_missing_columns(df):
-    missing = df.isnull().sum(axis=1)
-    pct_cols_missing = df.isnull().sum(axis=1) / df.shape[1]*100
-    rows_missing = pd.DataFrame({'num_cols_missing': missing, 'pct_cols_missing':pct_cols_missing, 
-                                'num_rows':missing })
-    return rows_missing
-
-
 def acquire_data():
+    '''
+    Returns a dataframe:
+    
+    - acquire_data()
+        - call generate_csv function to generate a csv file of the SQL data
+        - reads the csv to a dataframe and returns it
+    
+    - generate_csv()
+        - calls csv_exit to determines if a local csv file exist
+            - if a csv file exist, prints a message
+            - if a csv file does not exist
+                - calls get_data_from_zillow()
+                - writes dataframe to csv
+                
+    - csv_exist()
+        - uses os.path.isfile
+        - returns a boolean 
+    
+    - get_data_from_zillow()
+        - acquires data from SQL database
+        - return to generate_csv as a dataframe
+    
+    
+    '''
     print('Acquiring data ...\n')
     generate_csv()
     print('\nData has been acquired')
