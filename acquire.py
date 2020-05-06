@@ -1,59 +1,51 @@
+import os.path
 import pandas as pd
 import numpy as np
 
 import env
 
+def csv_exist():
+    return os.path.isfile('zillow_data.csv')
 
 def get_data_from_zillow():
-    query = '''
-     SELECT *
-    FROM 
-        (SELECT 
-        pred.parcelid,
-        logerror,
-        transactiondate
-        FROM 
-        predictions_2017 AS pred
-    JOIN
-    (SELECT 
-    predictions_2017.parcelid,
-    MAX(transactiondate) AS max_trans_date
-    FROM predictions_2017
-GROUP BY predictions_2017.parcelid) AS pred_agg ON (pred.parcelid=pred_agg.parcelid) AND (pred_agg.max_trans_date=pred.transactiondate)) AS unique_properties
-LEFT JOIN properties_2017 AS A USING(parcelid)
-LEFT JOIN propertylandusetype USING (propertylandusetypeid)
-LEFT JOIN storytype USING (storytypeid)
-LEFT JOIN typeconstructiontype USING (typeconstructiontypeid)
-LEFT JOIN airconditioningtype USING (airconditioningtypeid)
-LEFT JOIN architecturalstyletype USING (architecturalstyletypeid)
-LEFT JOIN buildingclasstype USING (buildingclasstypeid)
-LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid)
-WHERE latitude IS NOT NULL AND longitude IS NOT NULL;
-'''
-    df = pd.read_sql(query, env.get_url('zillow'))
-    return df
+    query ='''
+        select 
+            prop.parcelid
+            , pred.logerror
+            , pred.transactiondate
+            , bathroomcnt
+            , bedroomcnt
+            , calculatedfinishedsquarefeet
+            , fips
+            , latitude
+            , longitude
+            , lotsizesquarefeet
+            , regionidcity
+            , regionidcounty
+            , regionidneighborhood
+            , regionidzip
+            , yearbuilt
+            , structuretaxvaluedollarcnt
+            , taxvaluedollarcnt
+            , landtaxvaluedollarcnt
+            , taxamount
+        from properties_2017 prop
+        inner join predictions_2017 pred on prop.parcelid = pred.parcelid
+        where propertylandusetypeid = 261 and structuretaxvaluedollarcnt < 1000000;
+        '''
+    return pd.read_sql(query, env.get_url('zillow'))
 
 
+def generate_csv():
+    if csv_exist():
+        print('- csv already exist')
+    else:
+        df = get_data_from_zillow()
+        df.to_csv('zillow_data.csv')
+        print('- zillow_data.csv successfully created')
 
 
-
-#def get_data_from_zillow():
-#    query = '''
-#    SELECT *
-#    FROM properties_2017
-#    LEFT JOIN predictions_2017 USING(parcelid)
-#    LEFT JOIN propertylandusetype USING (propertylandusetypeid)
-#    LEFT JOIN storytype USING (storytypeid)
-#    LEFT JOIN typeconstructiontype USING (typeconstructiontypeid)
-#    LEFT JOIN airconditioningtype USING (airconditioningtypeid)
-#    LEFT JOIN architecturalstyletype USING (architecturalstyletypeid)
-#    LEFT JOIN buildingclasstype USING (buildingclasstypeid)
-#    LEFT JOIN heatingorsystemtype USING (heatingorsystemtypeid)
-#    WHERE latitude IS NOT NULL AND longitude IS NOT NULL;'''
-#    df = pd.read_sql(query, env.get_url('zillow'))
-#    return df
-
-
+# returns a series for the summerize
 def convert_to_series(df):
     '''
     helper function for the summarize function
@@ -69,6 +61,8 @@ def convert_to_series(df):
         series = series.append(col_count)
     return series
 
+
+# need
 def summarize(df):
     print("******** Info")
     df.info()
@@ -80,8 +74,8 @@ def summarize(df):
     print()
     print("******** Value Counts")      
     print(convert_to_series(df))
-    
-    
+
+
 # function returns missing rows in data set
 def nulls_missing_rows(df):
     missing = df.isnull().sum()
@@ -96,3 +90,13 @@ def nulls_missing_columns(df):
     rows_missing = pd.DataFrame({'num_cols_missing': missing, 'pct_cols_missing':pct_cols_missing, 
                                 'num_rows':missing })
     return rows_missing
+
+
+def acquire_data():
+    print('Acquiring data ...\n')
+    generate_csv()
+    print('\nData has been acquired')
+    df = pd.read_csv('zillow_data.csv')
+    df.drop(columns=['Unnamed: 0'], inplace=True)
+    return df
+    
