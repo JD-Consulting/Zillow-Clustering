@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 
 
-
 # removing missing rows and columns 
 
 def remove_columns(df, cols_to_remove):  
@@ -68,7 +67,7 @@ def add_upper_outlier_columns(df, k):
 
     return df    
 
-
+# needed
 def zillow_single_unit_prop(df):
     criteria_1=df.propertylandusedesc=='Single Family Residential'
     criteria_2=df.calculatedfinishedsquarefeet>500
@@ -77,13 +76,13 @@ def zillow_single_unit_prop(df):
     df=df[(criteria_1) & (criteria_2) & (criteria_3) & (criteria_4)]
     return df
 
-
+# needed
 def fill_missing_values(df,fill_value):
     df.fillna(fill_value)
     return df
 
-
-def change_data(df, cols):
+# Needed
+def change_data_to_object(df, cols):
     """
     takes a dataframe and a list of columns and it 
     converts the columns listed that are in the dataframe into 
@@ -94,4 +93,16 @@ def change_data(df, cols):
     newdf = newdf.astype(object)
     df = pd.concat([df, newdf], axis=1)
     return df
-    
+
+# Needed
+def change_data_to_int(df, cols):
+    """
+    takes a dataframe and a list of columns and it 
+    converts the columns listed that are in the dataframe into 
+    objects in the same dataframe
+    """
+    newdf = pd.DataFrame(df, columns=cols)
+    df = df.drop(columns=cols)
+    newdf = newdf.astype(int)
+    df = pd.concat([df, newdf], axis=1)
+    return df
