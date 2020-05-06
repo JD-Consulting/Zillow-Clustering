@@ -12,3 +12,7 @@ def wrangle_zillow_data():
     df = handle_missing_values(df)
     df.dropna(inplace=True)
     return df
+
+
+def wrangle_values():
+    
