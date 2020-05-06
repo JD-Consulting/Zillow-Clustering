@@ -106,3 +106,14 @@ def change_data_to_int(df, cols):
     newdf = newdf.astype(int)
     df = pd.concat([df, newdf], axis=1)
     return df
+
+# Needed
+def the_master_imputer(df):
+    for col in df:
+        if df[f'{col}'].isna().sum() > 0:
+            df[f'{col}'] = df[f'{col}'].fillna(df[f'{col}'].median())
+    return df
+    
+# Needed    
+def percent_of_values_missing(df):
+    return round(df.isna().sum()/len(df)*100,2)
