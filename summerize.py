@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # returns a series for the summerize
 def convert_to_series(df):
@@ -30,8 +32,24 @@ def summarize_data(df):
     print()
     print("******** Value Counts")      
     print(convert_to_series(df))
+    
+    
+def show_distribution(df):
+    newdf = pd.DataFrame()
+    for col in df:
+        if col in df.corr() >= 0.5:
+            newdf[f'{col}'] = df[f'{col}']
+    return sns.pairplot(newdf, palette='hus1')
+        
+        
+    sns.pairplot(df, palette='hus1', corner=True, diag_kind='hist')
+    plt.show()
 
 
 
+    for col in df:
+        if df[f'{col}'].isna().sum() > 0:
+            df[f'{col}'] = df[f'{col}'].fillna(df[f'{col}'].median())
+    return df
 
 
