@@ -58,7 +58,12 @@ def get_test():
 
 # SCALING
 
-
+def scale_data(df):
+    scaler = MinMaxScaler(copy=True, feature_range=(0, 1)).fit(df)
+    
+    df_scaled = pd.DataFrame(scaler.transform(df), columns=df.columns.values).set_index([df.index.values])
+    
+    return df_scaled, scaler
     
 
 
