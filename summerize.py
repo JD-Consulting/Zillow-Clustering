@@ -44,12 +44,3 @@ def show_distribution(df):
         
     sns.pairplot(df, palette='hus1', corner=True, diag_kind='hist')
     plt.show()
-
-
-
-    for col in df:
-        if df[f'{col}'].isna().sum() > 0:
-            df[f'{col}'] = df[f'{col}'].fillna(df[f'{col}'].median())
-    return df
-
-

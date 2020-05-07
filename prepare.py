@@ -69,12 +69,11 @@ def add_upper_outlier_columns(df, k):
 
 # needed
 def zillow_single_unit_prop(df):
-    criteria_1=df.propertylandusedesc=='Single Family Residential'
-    criteria_2=df.calculatedfinishedsquarefeet>500
-    criteria_3=df.bathroomcnt>0
-    criteria_4=df.bedroomcnt>0
+    criteria_1=df.calculatedfinishedsquarefeet>500
+    criteria_2=df.bathroomcnt>0
+    criteria_3=df.bedroomcnt>0
+    criteria_4=df.calculatedfinishedsquarefeet<8_000
     df=df[(criteria_1) & (criteria_2) & (criteria_3) & (criteria_4)]
-    df['bathroom_ratio'] = df.bathroomcnt / df.bedroomcnt
     return df
 
 # needed
