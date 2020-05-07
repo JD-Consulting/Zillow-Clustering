@@ -74,6 +74,7 @@ def zillow_single_unit_prop(df):
     criteria_3=df.bathroomcnt>0
     criteria_4=df.bedroomcnt>0
     df=df[(criteria_1) & (criteria_2) & (criteria_3) & (criteria_4)]
+    df['bathroom_ratio'] = df.bathroomcnt / df.bedroomcnt
     return df
 
 # needed
