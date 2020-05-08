@@ -12,5 +12,10 @@ def calculate_logerror(actual, predicted, df):
     df[predicted] = np.log(df[predicted])
     df['logerror'] = df[predicted] - df[actual]
     return df
+
+def better_than_zillow(actual, predicted):
+    better = abs(predicted) < abs(actual)
+    return better.sum() / len(better)
+    
     
     
