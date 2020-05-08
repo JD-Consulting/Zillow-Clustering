@@ -73,7 +73,9 @@ def zillow_single_unit_prop(df):
     criteria_2=df.bathroomcnt>0
     criteria_3=df.bedroomcnt>0
     criteria_4=df.calculatedfinishedsquarefeet<8_000
-    df=df[(criteria_1) & (criteria_2) & (criteria_3) & (criteria_4)]
+    criteria_5=df.bathroomcnt<6
+    criteria_6=df.bedroomcnt<6
+    df=df[(criteria_1) & (criteria_2) & (criteria_3) & (criteria_4) & (criteria_5) & (criteria_6)]
     return df
 
 # needed
