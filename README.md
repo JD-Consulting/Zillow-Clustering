@@ -8,7 +8,7 @@ Can we improve the zillow logerror?
     - "Can we reduce the Zillow logerror?"
     - Clear steps taken to arrive at a conclusion. 
     - End of notebook will be the report.
-2. Presentation: [Link] ()
+2. Presentation:
     - Illustrates how the notebook
         - Include the features being used
         - Include whether or not the model works better then Zillow's model
@@ -22,14 +22,15 @@ Can we improve the zillow logerror?
      
 4. Github Repository:
     - Readme (this file)
-    - Final Jupyter notebook walking through the pipeline
-    - .py files with all functions necessary to reproduce the model
+    - Final Jupyter notebook walking through the pipeline.
+    - .py files with all functions necessary to reproduce the model.
 
 
 # Pipeline
 
 ## Planning
-- Goal: identify 
+- $H_0$: There is no difference between our logerror and Zillow's logerror
+- $H_a1$: There is a difference between our logerror and Zillow's logerror
     
 ## Acquire Data
 - an acquired dataframe
@@ -100,9 +101,7 @@ Can we improve the zillow logerror?
 |   	| money_bed_cluster                   	| clustered by tax value and bedroom count scaled and logerror                                  	|
 |   	| sqft_cluster                        	| clustered by calculated square feet scaled and logerror                                       	|
 |   	| tax_rate_cluster                    	| clustered by tax rate                                                                         	|
-|   	| *PREDICTIONS*                       	|                                                                                               	|
-|   	|                                     	|                                                                                               	|
-|   	|                                     	|                                                                                               	|
+                    	|                                                                                               	|
 
 
 ## Data Exploration
@@ -120,4 +119,7 @@ Can we improve the zillow logerror?
     - Summarize the performance. 
     - Interpret your results.
 
+# Conclusion
 
+- Our best model only best Zillow by 8%
+- Considering the results of our model, we must reject the null hypothesis that there is no difference between our logerror and Zillow's logerror
