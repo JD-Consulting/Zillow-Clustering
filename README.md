@@ -68,32 +68,47 @@ Some questions I have include:
 
 - Goal: Data Dictionary
 
-|      	| **ORIGINAL FEATURES**        	|                                                                                               	|
-|------	|------------------------------	|-----------------------------------------------------------------------------------------------	|
-| i    	| parcelid                     	| identification: numerical id assigned to a parcel region                                      	|
-| ii   	| logerror                     	| difference between the actual sale price and the predicted sales pri                          	|
-| iii  	| transactiondate              	| date a transaction took place                                                                 	|
-| iv   	| bathroomcnt                  	| number of bathrooms a structure houses                                                        	|
-| v    	| bedroomcnt                   	| number of bedrooms a structure houses                                                         	|
-| vi   	| calculatedfinishedsquarefeet 	| calculated square feet of a completed structure                                               	|
-| vii  	| latitude                     	| measurement: angular distance of location, north or south of the equator                      	|
-| viii 	| longitude                    	| measurement: angular distance of location, east or west of the meridian at Greenwich, England 	|
-| ix   	| lotsizesquarefeet            	| measurement: square foot size of the properties land                                          	|
-| x    	| regionidcity                 	| identification: numerical id assigned                                                         	|
-| xi   	| regionidzip                  	| identification: numerical zip code                                                            	|
-| xii  	| yearbuilt                    	| date: year the structure was completed                                                        	|
-| xiii 	| structuretaxvaluedollarcnt   	| monetary: tax value of the structure minus the land value                                     	|
-| xiv  	| taxvaluedollarcnt            	| monetary: tax value of the structure and land combined                                        	|
-| xv   	| landtaxvaluedollarcnt        	| monetary: tax value of the land minus the structure value                                     	|
-| xvi  	| taxamount                    	| monetary: dollar amount of taxes                                                              	|
-|      	|                              	|                                                                                               	|
-|      	| **CREATED FEATURES:**        	|                                                                                               	|
-| i    	| LA                           	| county_name: assigned a 1 if True, otherwise 0                                                	|
-| ii   	| Orange                       	| county_name: assigned a 1 if True, otherwise 0                                                	|
-| iii  	| Ventura                      	| county_name: assigned a 1 if True, otherwise 0                                                	|
-| iv   	| bed_bath_ratio               	| percentage: bathroomcnt / bedroomcnt                                                          	|
-| v    	| tax_rate                     	| percentage: taxamount / taxvaluedollarcnt                                                     	|
-
+|   	| **ORIGINAL FEATURES**               	|                                                                                               	|
+|---	|-------------------------------------	|-----------------------------------------------------------------------------------------------	|
+|   	| parcelid                            	| identification: numerical id assigned to a parcel region                                      	|
+|   	| logerror                            	| difference between the actual sale price and the predicted sales pri                          	|
+|   	| transactiondate                     	| date a transaction took place                                                                 	|
+|   	| bathroomcnt                         	| number of bathrooms a structure houses                                                        	|
+|   	| bedroomcnt                          	| number of bedrooms a structure houses                                                         	|
+|   	| calculatedfinishedsquarefeet        	| calculated square feet of a completed structure                                               	|
+|   	| county                              	| name: names of the county associated with the property                                        	|
+|   	| latitude                            	| measurement: angular distance of location, north or south of the equator                      	|
+|   	| longitude                           	| measurement: angular distance of location, east or west of the meridian at Greenwich, England 	|
+|   	| lotsizesquarefeet                   	| measurement: square foot size of the properties land                                          	|
+|   	| regionidcity                        	| identification: numerical id assigned                                                         	|
+|   	| regionidzip                         	| identification: numerical zip code                                                            	|
+|   	| yearbuilt                           	| date: year the structure was completed                                                        	|
+|   	| structuretaxvaluedollarcnt          	| monetary: tax value of the structure minus the land value                                     	|
+|   	| taxvaluedollarcnt                   	| monetary: tax value of the structure and land combined                                        	|
+|   	| landtaxvaluedollarcnt               	| monetary: tax value of the land minus the structure value                                     	|
+|   	| taxamount                           	| monetary: dollar amount of taxes                                                              	|
+|   	|                                     	|                                                                                               	|
+|   	| **CREATED FEATURES:**               	|                                                                                               	|
+|   	| age                                 	| numerical: how old the house is since 2017 ~ 2017 - yearbuilt                                 	|
+|   	| LA                                  	| county_name: assigned a 1 if True, otherwise 0                                                	|
+|   	| Orange                              	| county_name: assigned a 1 if True, otherwise 0                                                	|
+|   	| Ventura                             	| county_name: assigned a 1 if True, otherwise 0                                                	|
+|   	| bed_bath_ratio                      	| percentage: bathroomcnt / bedroomcnt                                                          	|
+|   	| tax_rate                            	| percentage: taxamount / taxvaluedollarcnt                                                     	|
+|   	| *SCALED*                            	| values scaled to a float between 0 and 1                                                      	|
+|   	| scaled_bathroomcnt                  	| scaled count: bedroom count scaled                                                            	|
+|   	| scaled_calculatedfinishedsquarefeet 	| scaled measurement: calculated square feet of a finished structure scaled                     	|
+|   	| scaled_lotsizesquarefeet            	| scaled measurement: size of the land scaled                                                   	|
+|   	| scaled_taxvaluedollarcnt            	| scaled monetary: tax value of the structure and land combined scaled                          	|
+|   	| *LOG*                               	| *property cluster assignment*                                                                 	|
+|   	| log_cluster                         	| clustered by longitude and latitude                                                           	|
+|   	| lotsizesquaredfeet_cluster          	| clustered by square foot size of the properties land                                          	|
+|   	| money_bed_cluster                   	| clustered by tax value and bedroom count scaled and logerror                                  	|
+|   	| sqft_cluster                        	| clustered by calculated square feet scaled and logerror                                       	|
+|   	| tax_rate_cluster                    	| clustered by tax rate                                                                         	|
+|   	| *PREDICTIONS*                       	|                                                                                               	|
+|   	|                                     	|                                                                                               	|
+|   	|                                     	|                                                                                               	|
 
 
 ## Data Exploration
