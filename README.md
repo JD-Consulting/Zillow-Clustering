@@ -3,24 +3,16 @@
 ## Purpose
 Can we improve the zillow logerror?
 
-Some questions I have include:
-
-1.  
-2. 
-3. 
-4. 
-
-
 ## Deliverables
 1. Report (jupyter notebook) answering the question:
-    - "Why are our customers churning?"
-    - I want to see the analysis you did to answer my questions and lead to your findings. Please clearly call out the **questions** and **answers** you are analyzing. 
-    - End of notebook will produce .csv file with the customer_id, probability of churn, and the prediction of churn (1=churn, 0=not_churn).
+    - "Can we reduce the Zillow logerror?"
+    - Clear steps taken to arrive at a conclusion. 
+    - End of notebook will be the report.
 2. Presentation: [Link] ()
     - Illustrates how the notebook
         - Include the features being used
-        - Include how likely your model is to predict
-3. Multiple .py files with their associated notebooks
+        - Include whether or not the model works better then Zillow's model
+3. Multiple .py files
     - aqcuire.py
     - model.py
     - prepare.py
@@ -28,22 +20,24 @@ Some questions I have include:
     - set_counties.py
     - summerize.py
      
-4. Github Repository: [Link](https://github.com/JD-Consulting/Zillow-Clustering)
+4. Github Repository:
     - Readme (this file)
     - Final Jupyter notebook walking through the pipeline
     - .py files with all functions necessary to reproduce the model
 
+
 # Pipeline
 
-
 ## Planning
-
+- Goal: identify 
+    
 ## Acquire Data
-- Goal: a prepared dataframe
-    - Create a file called acquire.py with all necessary functions to generate this dataframe from SQL
-
+- an acquired dataframe
+    - Created a file called acquire.py with the following necessary functions to generate this dataframe from SQL
+      - calls acquire_data()
+      - creates a csv file of the dataframe
 ## Data Preparation
-- Goal: prepared dataframe using the functions listed below, found in prepare.py 
+- prepared the dataframe using the functions listed below, found in prepare.py 
     - Split data into train/test/validate
         - split_my_data(df, test_percentage, validate_percetage)
     - Handle missing & null values
@@ -125,11 +119,5 @@ Some questions I have include:
 - Goal: Test the final model (transform, evaluate) on your out-of-sample data (the testing data set). 
     - Summarize the performance. 
     - Interpret your results.
-
-
-
-
-
-
 
 
